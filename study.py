@@ -21,13 +21,13 @@ def rastgele_bir_basamakli():
 
 def sayi_uret(tip):
     """Oyun tipine göre sayı çifti üretir"""
-    if tip == 'baslangic':
+    if tip == 'kolay':
         # Bir basamak × Bir basamak
         return rastgele_bir_basamakli(), rastgele_bir_basamakli()
-    elif tip == 'kolay':
+    elif tip == 'orta':
         # İki basamak × Bir basamak
         return rastgele_iki_basamakli(), rastgele_bir_basamakli()
-    else:
+    elif tip == 'zor':
         # İki basamak × İki basamak
         return rastgele_iki_basamakli(), rastgele_iki_basamakli()
 
@@ -35,19 +35,19 @@ def sayi_uret(tip):
 def ana_sayfa():
     return render_template('secim.html')
 
-@app.route('/oyun')
+@app.route('/oyun_carpma')
 def oyun_sayfasi():
     tip = request.args.get('tip', 'iki-basamak')
     sayi1, sayi2 = sayi_uret(tip)
     
-    if tip == 'baslangic':
+    if tip == 'kolay':
         seviye_adi = "Bir Basamak × Bir Basamak"
-    elif tip == 'kolay':
+    elif tip == 'orta':
         seviye_adi = "İki Basamak × Bir Basamak"
-    else:
+    elif tip == 'zor':
         seviye_adi = "İki Basamak × İki Basamak"
     
-    return render_template('oyun.html', 
+    return render_template('oyun_carpma.html', 
                                 sayi1=sayi1, sayi2=sayi2, 
                                 tip=tip, seviye_adi=seviye_adi)
 
