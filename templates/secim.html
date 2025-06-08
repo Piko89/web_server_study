@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çarpma İşlemi Öğreniyorum</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Çarpma İşlemi Öğreniyorum</h1>
+        <h3>Hangi seviyede çalışmak istiyorsun?</h3>
+        
+        <div class="secim-kutusu">
+            <a href="/oyun?tip=baslangic" class="secim-buton">
+                🌟 Bir Basamak × Bir Basamak
+                <div class="aciklama">Örnek: 7 × 8 = ?</div>
+            </a>
+            
+            <a href="/oyun?tip=kolay" class="secim-buton">
+                🎈 İki Basamak × Bir Basamak
+                <div class="aciklama">Örnek: 38 × 9 = ?</div>
+            </a>
+            
+            <a href="/oyun?tip=iki-basamak" class="secim-buton">
+                📚 İki Basamak × İki Basamak
+                <div class="aciklama">Örnek: 38 × 47 = ?</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
