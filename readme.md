@@ -1,12 +1,12 @@
-# Çarpma ve Toplama İşlemi Öğreniyorum
+# İşlemleri Öğreniyorum (Toplama, Çıkarma, Çarpma, Bölme)
 
-Bu proje, ilkokul seviyesindeki öğrencilerin çarpma ve toplama işlemlerini eğlenceli bir şekilde pekiştirmesi için hazırlanmış web tabanlı bir uygulamadır. Kullanıcılar farklı zorluk seviyelerinde rastgele oluşturulan işlemleri çözerek pratik yapabilirler.
+Bu proje, ilkokul seviyesindeki öğrencilerin toplama, çıkarma, çarpma ve bölme işlemlerini eğlenceli bir şekilde pekiştirmesi için hazırlanmış web tabanlı bir uygulamadır. Kullanıcılar farklı zorluk seviyelerinde rastgele oluşturulan işlemleri çözerek pratik yapabilirler.
 
 ## Özellikler
 
-- **Çarpma ve toplama işlemleri** için ayrı oyun ekranları
+- **Toplama, çıkarma, çarpma ve bölme işlemleri** için ayrı oyun ekranları
 - Kolay, orta ve zor olmak üzere **3 farklı seviye**
-- Her yeni soru için rastgele sayı üretimi
+- Her yeni soru için rastgele sayı üretimi (ilk sayı her zaman ikinci sayıdan büyük veya eşit)
 - Doğru ve yanlış cevap sayacı
 - Modern ve renkli kullanıcı arayüzü
 
@@ -35,7 +35,6 @@ Bu proje, ilkokul seviyesindeki öğrencilerin çarpma ve toplama işlemlerini e
 4. **Tarayıcınızda açın:**  
    [http://localhost:5000](http://localhost:5000) adresine gidin.
 
-
 ## Klasör Yapısı
 
 ```
@@ -49,14 +48,16 @@ web_server_study/
 │   │   └── style.css
 │   └── js/
 │       ├── carpma_script.js
-│       └── topla_script.js
+│       ├── topla_script.js
+│       ├── cikar_script.js
+│       └── bolme_script.js
 └── templates/
     ├── secim.html
     ├── oyun_carpma.html
-    └── oyun_topla.html
+    ├── oyun_topla.html
+    ├── oyun_cikar.html
+    └── oyun_bolme.html
 ```
-
-
 
 ## Katkı ve Lisans
 
@@ -64,4 +65,4 @@ Bu proje eğitim amaçlıdır. Katkıda bulunmak isterseniz pull request gönder
 
 ## Teşekkür
 
-Bu projeyi geliştirirken kodlama ve hata ayıklama süreçlerinde **yapay zekadan (GitHub Copilot)ve(Claude)** yardım alınmıştır.
+Bu projeyi geliştirirken kodlama ve hata ayıklama süreçlerinde **yapay zekadan (GitHub Copilot ve Claude)** yardım alınmıştır.

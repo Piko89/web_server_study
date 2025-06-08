@@ -20,16 +20,17 @@ def rastgele_bir_basamakli():
     return random.randint(1, 9)
 
 def sayi_uret(tip):
-    """Oyun tipine göre sayı çifti üretir"""
+    """Oyun tipine göre sayı çifti üretir ve ilk sayı ikinci sayıdan büyük olur"""
     if tip == 'kolay':
-        # Bir basamak × Bir basamak
-        return rastgele_bir_basamakli(), rastgele_bir_basamakli()
+        a, b = rastgele_bir_basamakli(), rastgele_bir_basamakli()
     elif tip == 'orta':
-        # İki basamak × Bir basamak
-        return rastgele_iki_basamakli(), rastgele_bir_basamakli()
+        a, b = rastgele_iki_basamakli(), rastgele_bir_basamakli()
     elif tip == 'zor':
-        # İki basamak × İki basamak
-        return rastgele_iki_basamakli(), rastgele_iki_basamakli()
+        a, b = rastgele_iki_basamakli(), rastgele_iki_basamakli()
+    # Büyük olanı birinci sıraya al
+    if a < b:
+        a, b = b, a
+    return a, b
 
 @app.route('/')
 def ana_sayfa():
@@ -67,11 +68,54 @@ def oyun_topla():
                                 sayi1=sayi1, sayi2=sayi2, 
                                 tip=tip, seviye_adi=seviye_adi)
 
+@app.route('/oyun_cikar')
+def oyun_cikar():
+    tip = request.args.get('tip', 'iki-basamak')
+    sayi1, sayi2 = sayi_uret(tip)
+    
+    if tip == 'kolay':
+        seviye_adi = "Bir Basamak - Bir Basamak"
+    elif tip == 'orta':
+        seviye_adi = "İki Basamak - Bir Basamak"
+    elif tip == 'zor':
+        seviye_adi = "İki Basamak - İki Basamak"
+    
+    return render_template('oyun_cikar.html', 
+                                sayi1=sayi1, sayi2=sayi2, 
+                                tip=tip, seviye_adi=seviye_adi)
+
 
 @app.route('/yeni-soru')
 def yeni_soru():
     tip = request.args.get('tip', 'iki-basamak')
     sayi1, sayi2 = sayi_uret(tip)
+    return jsonify({
+        'sayi1': sayi1,
+        'sayi2': sayi2
+    })
+
+@app.route('/oyun_bolme')
+def oyun_bolme():
+    tip = request.args.get('tip', 'iki-basamak')
+    sayi1, sayi2 = sayi_uret(tip)
+    sayi1= sayi1 * sayi2
+
+    if tip == 'kolay':
+        seviye_adi = "Kolay Bölme"
+    elif tip == 'orta':
+        seviye_adi = "İki Basamak ÷ Bir Basamak"
+    elif tip == 'zor':
+        seviye_adi = "İki Basamak ÷ İki Basamak"
+    
+    return render_template('oyun_bolme.html', 
+                                sayi1=sayi1, sayi2=sayi2, 
+                                tip=tip, seviye_adi=seviye_adi)
+
+@app.route('/yeni-soru-bolme')
+def yeni_soru_bolme():
+    tip = request.args.get('tip', 'iki-basamak')
+    sayi1, sayi2 = sayi_uret(tip)
+    sayi1= sayi1 * sayi2
     return jsonify({
         'sayi1': sayi1,
         'sayi2': sayi2

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toplama İşlemi Öğreniyorum</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="cikar_body">
+    <div class="container">
+        <a href="/" class="geri-buton">← Ana Menü</a>
+        
+        <h1>➖ Çıkarma İşlemi</h1>
+        <div class="seviye">{{ seviye_adi }}</div>
+        
+        <div id="soru" class="soru">{{ sayi1 }} - {{ sayi2 }} = ?</div>
+        
+        <input type="number" id="cevap" class="cevap-kutusu" placeholder="Cevabınız">
+        
+        <div>
+            <button class="buton" onclick="cevapKontrol()">Cevapla</button>
+            <button class="buton" onclick="yeniSoru()">Yeni Soru</button>
+        </div>
+        
+        <div id="sonuc" class="sonuc" style="display: none;"></div>
+        
+        <div class="puan">
+            <div>Doğru: <span id="dogru-sayisi">0</span></div>
+            <div>Yanlış: <span id="yanlis-sayisi">0</span></div>
+        </div>
+    </div>
+    <script>
+    window.oyunVeri = {
+        mevcutSayi1: {{ sayi1 }},
+        mevcutSayi2: {{ sayi2 }},
+        oyunTipi: "{{ tip }}"
+    };
+    </script>
+    <script src="{{ url_for('static', filename='js/cikar_script.js') }}"></script>
+
+</body>
+</html>

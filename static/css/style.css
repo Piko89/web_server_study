@@ -11,7 +11,18 @@
 
 .carpma_body {
      font-family: 'Arial', sans-serif;
-     background: linear-gradient(135deg, #667eea 0%, #f91190 100%);
+     background: linear-gradient(135deg, #667eea 0%, #f511f9 100%);
+     margin: 0;
+     padding: 20px;
+     min-height: 100vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .bolme_body {
+     font-family: 'Arial', sans-serif;
+     background: linear-gradient(135deg, #667eea 0%, #f91143 100%);
      margin: 0;
      padding: 20px;
      min-height: 100vh;
@@ -23,6 +34,17 @@
  .topla_body {
      font-family: 'Arial', sans-serif;
      background: linear-gradient(135deg, #667eea 0%, #11f957 100%);
+     margin: 0;
+     padding: 20px;
+     min-height: 100vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .cikar_body {
+     font-family: 'Arial', sans-serif;
+     background: linear-gradient(135deg, #667eea 0%, #0c20f8 100%);
      margin: 0;
      padding: 20px;
      min-height: 100vh;
@@ -91,7 +113,7 @@
  }
 
  .secim-buton-carpma{
-     background: linear-gradient(45deg, #667eea, #f91190);
+     background: linear-gradient(45deg, #667eea, #f511f9);
      color: white;
      border: none;
      padding: 25px 30px;
@@ -104,6 +126,43 @@
  }
 
   .secim-buton-carpma:hover {
+     transform: translateY(-3px);
+     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+ }
+
+ .secim-buton-bolme{
+     background: linear-gradient(45deg, #667eea, #f91143);
+     color: white;
+     border: none;
+     padding: 25px 30px;
+     font-size: 1.4em;
+     border-radius: 15px;
+     cursor: pointer;
+     transition: transform 0.3s, box-shadow 0.3s;
+     text-decoration: none;
+     display: block;
+ }
+
+  .secim-buton-bolme:hover {
+     transform: translateY(-3px);
+     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+ }
+
+
+.secim-buton-cikar{
+     background: linear-gradient(45deg, #667eea, #0c20f8);
+     color: white;
+     border: none;
+     padding: 25px 30px;
+     font-size: 1.4em;
+     border-radius: 15px;
+     cursor: pointer;
+     transition: transform 0.3s, box-shadow 0.3s;
+     text-decoration: none;
+     display: block;
+ }
+
+  .secim-buton-cikar:hover {
      transform: translateY(-3px);
      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
  }
