@@ -9,6 +9,28 @@
      align-items: center;
  }
 
+.carpma_body {
+     font-family: 'Arial', sans-serif;
+     background: linear-gradient(135deg, #667eea 0%, #f91190 100%);
+     margin: 0;
+     padding: 20px;
+     min-height: 100vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .topla_body {
+     font-family: 'Arial', sans-serif;
+     background: linear-gradient(135deg, #667eea 0%, #11f957 100%);
+     margin: 0;
+     padding: 20px;
+     min-height: 100vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
  .container {
      background: white;
      border-radius: 20px;
@@ -49,6 +71,43 @@
      transform: translateY(-3px);
      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
  }
+
+.secim-buton-topla {
+     background: linear-gradient(45deg, #667eea, #11f957);
+     color: white;
+     border: none;
+     padding: 25px 30px;
+     font-size: 1.4em;
+     border-radius: 15px;
+     cursor: pointer;
+     transition: transform 0.3s, box-shadow 0.3s;
+     text-decoration: none;
+     display: block;
+ }
+
+  .secim-buton-topla:hover {
+     transform: translateY(-3px);
+     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+ }
+
+ .secim-buton-carpma{
+     background: linear-gradient(45deg, #667eea, #f91190);
+     color: white;
+     border: none;
+     padding: 25px 30px;
+     font-size: 1.4em;
+     border-radius: 15px;
+     cursor: pointer;
+     transition: transform 0.3s, box-shadow 0.3s;
+     text-decoration: none;
+     display: block;
+ }
+
+  .secim-buton-carpma:hover {
+     transform: translateY(-3px);
+     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+ }
+
 
  .aciklama {
      font-size: 1.1em;

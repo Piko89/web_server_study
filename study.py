@@ -36,7 +36,7 @@ def ana_sayfa():
     return render_template('secim.html')
 
 @app.route('/oyun_carpma')
-def oyun_sayfasi():
+def oyun_carpma():
     tip = request.args.get('tip', 'iki-basamak')
     sayi1, sayi2 = sayi_uret(tip)
     
@@ -50,6 +50,23 @@ def oyun_sayfasi():
     return render_template('oyun_carpma.html', 
                                 sayi1=sayi1, sayi2=sayi2, 
                                 tip=tip, seviye_adi=seviye_adi)
+
+@app.route('/oyun_topla')
+def oyun_topla():
+    tip = request.args.get('tip', 'iki-basamak')
+    sayi1, sayi2 = sayi_uret(tip)
+    
+    if tip == 'kolay':
+        seviye_adi = "Bir Basamak + Bir Basamak"
+    elif tip == 'orta':
+        seviye_adi = "İki Basamak + Bir Basamak"
+    elif tip == 'zor':
+        seviye_adi = "İki Basamak + İki Basamak"
+    
+    return render_template('oyun_topla.html', 
+                                sayi1=sayi1, sayi2=sayi2, 
+                                tip=tip, seviye_adi=seviye_adi)
+
 
 @app.route('/yeni-soru')
 def yeni_soru():

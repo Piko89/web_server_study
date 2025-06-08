@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Çarpma İşlemi Öğreniyorum</title>
+    <title>Toplama İşlemi Öğreniyorum</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body class="carpma_body">
+<body class="topla_body">
     <div class="container">
         <a href="/" class="geri-buton">← Ana Menü</a>
         
-        <h1>✖️ Çarpma İşlemi</h1>
+        <h1>➕ Toplama İşlemi</h1>
         <div class="seviye">{{ seviye_adi }}</div>
         
-        <div id="soru" class="soru">{{ sayi1 }} × {{ sayi2 }} = ?</div>
+        <div id="soru" class="soru">{{ sayi1 }} + {{ sayi2 }} = ?</div>
         
         <input type="number" id="cevap" class="cevap-kutusu" placeholder="Cevabınız">
         
@@ -36,7 +36,7 @@
         oyunTipi: "{{ tip }}"
     };
     </script>
-    <script src="{{ url_for('static', filename='js/carpma_script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/topla_script.js') }}"></script>
 
 </body>
 </html>
