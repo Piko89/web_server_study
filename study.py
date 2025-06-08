@@ -80,5 +80,5 @@ def yeni_soru():
 if __name__ == '__main__':
     print("🚀 Study sunucusu başlatılıyor...")
     print("📱 Tarayıcınızda http://localhost:5000 adresine gidin")
-    print("🌐 Ağdaki diğer cihazlardan erişmek için: http://[raspberry-pi-ip]:5000")
+    print("🌐 Ağdaki diğer cihazlardan erişmek için: http://[cihaz-ip]:5000")
     app.run(host='0.0.0.0', port=5000, debug=True)
