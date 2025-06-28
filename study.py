@@ -1,15 +1,8 @@
-from flask import Flask, render_template_string, render_template, request, jsonify
+from flask import Flask, render_template_string, render_template, request, jsonify, send_from_directory
 import random
+import os
 
 app = Flask(__name__)
-
-
-
-
-# Oyun sayfası HTML şablonu
-OYUN_TEMPLATE = """
-
-"""
 
 def rastgele_iki_basamakli():
     """10-99 arası rastgele sayı üretir"""
@@ -31,6 +24,21 @@ def sayi_uret(tip):
     if a < b:
         a, b = b, a
     return a, b
+
+# PWA için manifest.json dosyasını servis et
+@app.route('/manifest.json')
+def manifest():
+    return send_from_directory('static', 'manifest.json')
+
+# PWA için service worker'ı servis et
+@app.route('/service-worker.js')
+def service_worker():
+    return send_from_directory('static', 'service-worker.js')
+
+# PWA için ikonları servis et
+@app.route('/static/icons/<path:filename>')
+def icons(filename):
+    return send_from_directory('static/icons', filename)
 
 @app.route('/')
 def ana_sayfa():
@@ -84,7 +92,6 @@ def oyun_cikar():
                                 sayi1=sayi1, sayi2=sayi2, 
                                 tip=tip, seviye_adi=seviye_adi)
 
-
 @app.route('/yeni-soru')
 def yeni_soru():
     tip = request.args.get('tip', 'iki-basamak')
@@ -125,4 +132,5 @@ if __name__ == '__main__':
     print("🚀 Study sunucusu başlatılıyor...")
     print("📱 Tarayıcınızda http://localhost:5000 adresine gidin")
     print("🌐 Ağdaki diğer cihazlardan erişmek için: http://[cihaz-ip]:5000")
+    print("📲 PWA olarak ana ekrana ekleyebilirsiniz!")
     app.run(host='0.0.0.0', port=5000, debug=True)
