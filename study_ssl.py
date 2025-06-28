@@ -1,5 +1,10 @@
 from flask import Flask, render_template_string, render_template, request, jsonify, send_from_directory
 from ipaddress import IPv4Address
+import socket
+
+# Sunucu IP adresini buraya yaz
+SERVER_IP = socket.gethostbyname(socket.gethostname())
+
 import random
 import os
 import ssl
@@ -173,6 +178,8 @@ def create_self_signed_cert():
             x509.SubjectAlternativeName([
                 x509.DNSName("localhost"),
                 x509.IPAddress(IPv4Address("127.0.0.1")),
+                x509.IPAddress(IPv4Address(SERVER_IP)),  # <-- Buraya ekle
+                x509.IPAddress(IPv4Address("192.168.1.132"))  # <-- Buraya ekle
             ]),
             critical=False,
         ).sign(key, hashes.SHA256(), default_backend())
