@@ -63,6 +63,6 @@ web_server_study/
 
 Bu proje eğitim amaçlıdır. Katkıda bulunmak isterseniz pull request gönderebilirsiniz.
 
-## Teşekkür
+# Teşekkür
 
 Bu projeyi geliştirirken kodlama ve hata ayıklama süreçlerinde **yapay zekadan (GitHub Copilot ve Claude)** yardım alınmıştır.
