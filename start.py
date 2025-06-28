@@ -16,16 +16,39 @@ def update_repo():
     except Exception as e:
         print(f"❌ Error running git pull: {e}")
 
+def install_requirements():
+    """Gerekli paketleri yükle"""
+    print("📦 Checking required packages...")
+    try:
+        import cryptography
+        print("✅ cryptography already installed")
+    except ImportError:
+        print("📦 Installing cryptography for SSL support...")
+        try:
+            subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'cryptography'])
+            print("✅ cryptography installed successfully")
+        except Exception as e:
+            print(f"⚠️ Could not install cryptography: {e}")
+            print("💡 SSL desteği için manuel olarak 'pip install cryptography' çalıştırın")
+
 def start_app():
     python_cmd = 'python'
     if platform.system() != 'Windows':
         python_cmd = 'python3'
 
-    print("🚀 Starting study.py...")
-    try:
-        subprocess.call([python_cmd, 'study.py'])
-    except Exception as e:
-        print(f"❌ Failed to start study.py: {e}")
+    # SSL destekli study.py dosyası varsa onu kullan
+    if os.path.exists('study_ssl.py'):
+        print("🚀 Starting study_ssl.py with HTTPS support...")
+        try:
+            subprocess.call([python_cmd, 'study_ssl.py'])
+        except Exception as e:
+            print(f"❌ Failed to start study_ssl.py: {e}")
+    else:
+        print("🚀 Starting study.py...")
+        try:
+            subprocess.call([python_cmd, 'study.py'])
+        except Exception as e:
+            print(f"❌ Failed to start study.py: {e}")
 
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -36,6 +59,7 @@ def main():
         sys.exit(1)
 
     update_repo()
+    install_requirements()
     start_app()
 
 if __name__ == "__main__":
