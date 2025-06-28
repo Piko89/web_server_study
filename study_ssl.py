@@ -1,4 +1,5 @@
 from flask import Flask, render_template_string, render_template, request, jsonify, send_from_directory
+from ipaddress import IPv4Address
 import random
 import os
 import ssl
@@ -171,7 +172,7 @@ def create_self_signed_cert():
         ).add_extension(
             x509.SubjectAlternativeName([
                 x509.DNSName("localhost"),
-                x509.IPAddress("127.0.0.1"),
+                x509.IPAddress(IPv4Address("127.0.0.1")),
             ]),
             critical=False,
         ).sign(key, hashes.SHA256(), default_backend())
