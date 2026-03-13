@@ -183,6 +183,14 @@ def sayi_uret(tip):
         a, b = b, a
     return a, b
 
+@app.route('/manifest.json')
+def manifest():
+    return app.send_static_file('manifest.json')
+
+@app.route('/sw.js')
+def service_worker():
+    return app.send_static_file('sw.js')
+
 @app.route('/')
 def ana_sayfa():
     return render_template('secim.html')
