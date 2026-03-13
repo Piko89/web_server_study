@@ -113,6 +113,9 @@ def eski_verileri_sil():
         conn.close()
     except Exception as e:
         print(f"Eski veri silinirken hata: {e}")
+    finally:
+        if 'conn' in locals():
+            conn.close()
 
 def kullanici_bazinda_son_20yi_sil(kullanici_id):
     """Bu fonksiyon artık kullanılmıyor - tüm verileri 1 ay tutuyor"""
@@ -150,6 +153,9 @@ def gunluk_istatistik_guncelle(kullanici_id, dogru_mu):
         conn.close()
     except Exception as e:
         print(f"Günlük istatistik güncellenirken hata: {e}")
+    finally:
+        if 'conn' in locals():
+            conn.close()
 
 # Oyun sayfası HTML şablonu
 OYUN_TEMPLATE = """
@@ -181,90 +187,60 @@ def sayi_uret(tip):
 def ana_sayfa():
     return render_template('secim.html')
 
-@app.route('/oyun_carpma')
-def oyun_carpma():
+@app.route('/oyun/<islem_turu>')
+def oyun(islem_turu):
     tip = request.args.get('tip', 'iki-basamak')
     sayi1, sayi2 = sayi_uret(tip)
     
+    ayarlar = {
+        'topla': {'islem_sembolu': '➕', 'oyun_basligi': 'Toplama', 'islem_isareti': '+', 'body_class': 'topla_body'},
+        'cikar': {'islem_sembolu': '➖', 'oyun_basligi': 'Çıkarma', 'islem_isareti': '-', 'body_class': 'cikar_body'},
+        'carpma': {'islem_sembolu': '✖️', 'oyun_basligi': 'Çarpma', 'islem_isareti': '×', 'body_class': 'carpma_body'},
+        'bolme': {'islem_sembolu': '➗', 'oyun_basligi': 'Bölme', 'islem_isareti': '÷', 'body_class': 'bolme_body'}
+    }
+    
+    if islem_turu not in ayarlar:
+        return "Geçersiz işlem türü", 400
+        
+    ayar = ayarlar[islem_turu]
+    
+    # Bölme işleminde sonucun tam sayı çıkması için sayi1 çarpım olarak güncellenir
+    if islem_turu == 'bolme':
+        sayi1 = sayi1 * sayi2
+        
+    seviye_adi = f"{tip.capitalize()} Seviye"
     if tip == 'kolay':
-        seviye_adi = "Bir Basamak × Bir Basamak"
+        seviye_adi += " (1 Basamak)"
     elif tip == 'orta':
-        seviye_adi = "İki Basamak × Bir Basamak"
+        seviye_adi += " (2-1 Basamak)"
     elif tip == 'zor':
-        seviye_adi = "İki Basamak × İki Basamak"
-    
-    return render_template('oyun_carpma.html', 
-                                sayi1=sayi1, sayi2=sayi2, 
-                                tip=tip, seviye_adi=seviye_adi)
+        seviye_adi += " (2 Basamak)"
+        
+    return render_template('oyun.html',
+                           sayi1=sayi1, sayi2=sayi2,
+                           tip=tip, islem_turu=islem_turu,
+                           oyun_basligi=ayar['oyun_basligi'],
+                           islem_sembolu=ayar['islem_sembolu'],
+                           islem_isareti=ayar['islem_isareti'],
+                           body_class=ayar['body_class'],
+                           seviye_adi=seviye_adi)
 
-@app.route('/oyun_topla')
-def oyun_topla():
+@app.route('/yeni-soru/<islem_turu>')
+def yeni_soru_dinamik(islem_turu):
+    if islem_turu not in ['topla', 'cikar', 'carpma', 'bolme']:
+        return jsonify({'error': 'Geçersiz işlem türü'}), 400
+        
     tip = request.args.get('tip', 'iki-basamak')
     sayi1, sayi2 = sayi_uret(tip)
     
-    if tip == 'kolay':
-        seviye_adi = "Bir Basamak + Bir Basamak"
-    elif tip == 'orta':
-        seviye_adi = "İki Basamak + Bir Basamak"
-    elif tip == 'zor':
-        seviye_adi = "İki Basamak + İki Basamak"
-    
-    return render_template('oyun_topla.html', 
-                                sayi1=sayi1, sayi2=sayi2, 
-                                tip=tip, seviye_adi=seviye_adi)
-
-@app.route('/oyun_cikar')
-def oyun_cikar():
-    tip = request.args.get('tip', 'iki-basamak')
-    sayi1, sayi2 = sayi_uret(tip)
-    
-    if tip == 'kolay':
-        seviye_adi = "Bir Basamak - Bir Basamak"
-    elif tip == 'orta':
-        seviye_adi = "İki Basamak - Bir Basamak"
-    elif tip == 'zor':
-        seviye_adi = "İki Basamak - İki Basamak"
-    
-    return render_template('oyun_cikar.html', 
-                                sayi1=sayi1, sayi2=sayi2, 
-                                tip=tip, seviye_adi=seviye_adi)
-
-
-@app.route('/yeni-soru')
-def yeni_soru():
-    tip = request.args.get('tip', 'iki-basamak')
-    sayi1, sayi2 = sayi_uret(tip)
+    if islem_turu == 'bolme':
+        sayi1 = sayi1 * sayi2
+        
     return jsonify({
         'sayi1': sayi1,
         'sayi2': sayi2
     })
 
-@app.route('/oyun_bolme')
-def oyun_bolme():
-    tip = request.args.get('tip', 'iki-basamak')
-    sayi1, sayi2 = sayi_uret(tip)
-    sayi1= sayi1 * sayi2
-
-    if tip == 'kolay':
-        seviye_adi = "Kolay Bölme"
-    elif tip == 'orta':
-        seviye_adi = "İki Basamak ÷ Bir Basamak"
-    elif tip == 'zor':
-        seviye_adi = "İki Basamak ÷ İki Basamak"
-    
-    return render_template('oyun_bolme.html', 
-                                sayi1=sayi1, sayi2=sayi2, 
-                                tip=tip, seviye_adi=seviye_adi)
-
-@app.route('/yeni-soru-bolme')
-def yeni_soru_bolme():
-    tip = request.args.get('tip', 'iki-basamak')
-    sayi1, sayi2 = sayi_uret(tip)
-    sayi1= sayi1 * sayi2
-    return jsonify({
-        'sayi1': sayi1,
-        'sayi2': sayi2
-    })
 
 # ==================== API ROUTES ====================
 
@@ -315,6 +291,9 @@ def cevap_kaydet():
         return jsonify({'status': 'success'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
+    finally:
+        if 'conn' in locals():
+            conn.close()
 
 @app.route('/admin')
 def admin_paneli():
@@ -351,6 +330,9 @@ def api_istatistikler():
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    finally:
+        if 'conn' in locals():
+            conn.close()
 
 @app.route('/api/admin/kullanicilar')
 def api_kullanicilar():
@@ -394,6 +376,9 @@ def api_kullanicilar():
         return jsonify(sonuc)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    finally:
+        if 'conn' in locals():
+            conn.close()
 
 @app.route('/api/admin/kullanici/<int:kullanici_id>')
 def api_kullanici_detay(kullanici_id):
@@ -453,6 +438,9 @@ def api_kullanici_detay(kullanici_id):
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    finally:
+        if 'conn' in locals():
+            conn.close()
 
 @app.route('/api/admin/gunluk/<int:kullanici_id>')
 def api_gunluk_istatistikler(kullanici_id):
@@ -475,6 +463,9 @@ def api_gunluk_istatistikler(kullanici_id):
         return jsonify([dict(v) for v in veriler])
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    finally:
+        if 'conn' in locals():
+            conn.close()
 
 @app.route('/api/admin/gunluk-sorular/<int:kullanici_id>/<tarih>')
 def api_gunluk_sorular(kullanici_id, tarih):
@@ -498,6 +489,9 @@ def api_gunluk_sorular(kullanici_id, tarih):
         return jsonify([dict(c) for c in cevaplar])
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    finally:
+        if 'conn' in locals():
+            conn.close()
 
 @app.route('/api/admin/kullanici/<int:kullanici_id>', methods=['DELETE'])
 def api_kullanici_sil(kullanici_id):
@@ -517,6 +511,9 @@ def api_kullanici_sil(kullanici_id):
         return jsonify({'status': 'success', 'message': 'Kullanıcı ve verisi silindi'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
+    finally:
+        if 'conn' in locals():
+            conn.close()
 
 if __name__ == '__main__':
     print("🚀 Study sunucusu başlatılıyor...")
