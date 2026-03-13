@@ -1,0 +1,621 @@
+/* Admin Panel CSS */
+
+.admin_body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #667eea;
+}
+
+.admin-header h1 {
+    color: #667eea;
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.geri-buton {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #667eea;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+}
+
+.geri-buton:hover {
+    background: #764ba2;
+    transform: translateX(-3px);
+}
+
+/* İstatistikler Bölümü */
+.istatistikler-section {
+    margin-bottom: 40px;
+}
+
+.istatistikler-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.istatistikler-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.istatistik-kart {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.istatistik-kart:hover {
+    transform: translateY(-5px);
+}
+
+.istatistik-baslik {
+    font-size: 0.9em;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+.istatistik-degeri {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+/* Kullanıcılar Bölümü */
+.kullanicilar-section {
+    margin-top: 40px;
+}
+
+.kullanicilar-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.arama-bolumu {
+    margin-bottom: 20px;
+}
+
+.arama-input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.arama-input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Tablo */
+.tablo-container {
+    overflow-x: auto;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.kullanicilar-tablosu,
+.cevaplar-tablosu {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.kullanicilar-tablosu thead,
+.cevaplar-tablosu thead {
+    background: #667eea;
+    color: white;
+}
+
+.kullanicilar-tablosu th,
+.cevaplar-tablosu th {
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.kullanicilar-tablosu tr,
+.cevaplar-tablosu tr {
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s ease;
+}
+
+.kullanicilar-tablosu tr:hover,
+.cevaplar-tablosu tr:hover {
+    background: #f9f9f9;
+}
+
+.kullanicilar-tablosu td,
+.cevaplar-tablosu td {
+    padding: 15px;
+}
+
+.basari-degeri {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.basari-yuksek {
+    background: #d4edda;
+    color: #155724;
+}
+
+.basari-orta {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.basari-dusuk {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.detay-buton {
+    padding: 8px 15px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+}
+
+.detay-buton:hover {
+    background: #764ba2;
+    transform: scale(1.05);
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-kapat {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal-kapat:hover {
+    color: #000;
+}
+
+.modal-baslik {
+    color: #667eea;
+    margin-top: 0;
+}
+
+/* Kullanıcı Bilgisi */
+.kullanici-info {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border-left: 5px solid #667eea;
+}
+
+.kullanici-info-item {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.kullanici-info-label {
+    font-weight: bold;
+    color: #667eea;
+    display: inline-block;
+    min-width: 150px;
+}
+
+/* İşlem İstatistikleri */
+.islem-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.islem-stat-kart {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.islem-tipi-adi {
+    font-size: 0.9em;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+.islem-stat-row {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    font-size: 0.85em;
+}
+
+.islem-stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.islem-stat-degeri {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Son Cevaplar */
+.son-cevaplar-container {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+/* Sonuç Göstergesi */
+.sonuc-dogru {
+    background: #d4edda;
+    color: #155724;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.sonuc-yanlis {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Günlük İstatistikler */
+.gunluk-stats-container {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.gunluk-stat-satiri {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+
+.gunluk-stat-satiri:hover {
+    background: #f0f0f0;
+}
+
+.gunluk-stat-satiri.aktif {
+    background: #e8eaf6;
+    border-left: 4px solid #667eea;
+}
+
+.gunluk-stat-satiri:last-child {
+    border-bottom: none;
+}
+
+.gunluk-tarih {
+    font-weight: bold;
+    min-width: 100px;
+    color: #667eea;
+}
+
+.gunluk-veriler {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.gunluk-veri-item {
+    text-align: center;
+    min-width: 60px;
+}
+
+.gunluk-veri-label {
+    font-size: 0.8em;
+    color: #666;
+    display: block;
+}
+
+.gunluk-veri-deger {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Silme Butonu */
+.sil-buton {
+    padding: 8px 15px;
+    background: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.sil-buton:hover {
+    background: #d32f2f;
+    transform: scale(1.05);
+}
+
+/* Silme Modal Butonları */
+.buton-iptal,
+.buton-onayla {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.buton-iptal {
+    background: #ddd;
+    color: #333;
+}
+
+.buton-iptal:hover {
+    background: #bbb;
+}
+
+.buton-onayla {
+    background: #f44336;
+    color: white;
+}
+
+.buton-onayla:hover {
+    background: #d32f2f;
+}
+
+/* Günlük Sorular Tablosu */
+.gunluk-sorular-container {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+}
+
+.gunluk-sorular-tablosu {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.gunluk-sorular-tablosu thead {
+    background: #667eea;
+    color: white;
+}
+
+.gunluk-sorular-tablosu th {
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.gunluk-sorular-tablosu tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s ease;
+}
+
+.gunluk-sorular-tablosu tbody tr:hover {
+    background: #f9f9f9;
+}
+
+.gunluk-sorular-tablosu td {
+    padding: 10px;
+}
+
+.soru-dogru {
+    background: #d4edda;
+    color: #155724;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.soru-yanlis {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+/* Zorluk Seviyeleri */
+.zorluk-kolay {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.zorluk-orta {
+    color: #FF9800;
+    font-weight: bold;
+}
+
+.zorluk-zor {
+    color: #f44336;
+    font-weight: bold;
+}
+
+.zorluk-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+.zorluk-badge-kolay {
+    background: #d4edda;
+    color: #155724;
+}
+
+.zorluk-badge-orta {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.zorluk-badge-zor {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .gunluk-veriler {
+        gap: 15px;
+    }
+
+    .gunluk-stat-satiri {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .gunluk-veriler {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-container {
+        padding: 15px;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .admin-header h1 {
+        font-size: 1.8em;
+    }
+
+    .istatistikler-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+    }
+
+    .istatistik-kart {
+        padding: 15px;
+    }
+
+    .istatistik-degeri {
+        font-size: 1.8em;
+    }
+
+    .kullanicilar-tablosu,
+    .cevaplar-tablosu {
+        font-size: 0.9em;
+    }
+
+    .kullanicilar-tablosu th,
+    .cevaplar-tablosu th,
+    .kullanicilar-tablosu td,
+    .cevaplar-tablosu td {
+        padding: 10px;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .islem-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}

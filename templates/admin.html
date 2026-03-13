@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Paneli - Kullanıcı Geçmişi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body class="admin_body">
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1>📊 Admin Paneli</h1>
+            <a href="/" class="geri-buton">← Ana Menü</a>
+        </header>
+
+        <!-- Genel İstatistikler -->
+        <section class="istatistikler-section">
+            <h2>Genel İstatistikler</h2>
+            <div class="istatistikler-grid">
+                <div class="istatistik-kart">
+                    <div class="istatistik-baslik">👥 Toplam Kullanıcı</div>
+                    <div id="toplam-kullanici" class="istatistik-degeri">0</div>
+                </div>
+                <div class="istatistik-kart">
+                    <div class="istatistik-baslik">📝 Toplam Cevap</div>
+                    <div id="toplam-cevap" class="istatistik-degeri">0</div>
+                </div>
+                <div class="istatistik-kart">
+                    <div class="istatistik-baslik">✅ Doğru Cevap</div>
+                    <div id="dogru-cevap" class="istatistik-degeri">0</div>
+                </div>
+                <div class="istatistik-kart">
+                    <div class="istatistik-baslik">❌ Yanlış Cevap</div>
+                    <div id="yanlis-cevap" class="istatistik-degeri">0</div>
+                </div>
+                <div class="istatistik-kart">
+                    <div class="istatistik-baslik">🎯 Başarı Oranı</div>
+                    <div id="basari-orani" class="istatistik-degeri">0%</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kullanıcı Listesi -->
+        <section class="kullanicilar-section">
+            <h2>Kullanıcı Geçmişi</h2>
+            
+            <div class="arama-bolumu">
+                <input type="text" id="arama-kutusu" class="arama-input" placeholder="Kullanıcı adına göre ara...">
+            </div>
+
+            <div class="tablo-container">
+                <table class="kullanicilar-tablosu">
+                    <thead>
+                        <tr>
+                            <th>Kullanıcı Adı</th>
+                            <th>Toplam Soru</th>
+                            <th>Doğru</th>
+                            <th>Yanlış</th>
+                            <th>Başarı Oranı</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablo-body">
+                        <tr>
+                            <td colspan="6" style="text-align: center;">Yükleniyor...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Kullanıcı Detayları Modal -->
+        <div id="modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 id="modal-baslik" style="margin: 0;">Kullanıcı Detayları</h2>
+                    <div>
+                        <button id="modal-sil-buton" class="sil-buton" onclick="kullaniclariSil()">🗑️ Sil</button>
+                        <span class="modal-kapat">&times;</span>
+                    </div>
+                </div>
+                
+                <div id="modal-kullanici-info" class="kullanici-info">
+                    <!-- Dinamik olarak doldurulacak -->
+                </div>
+
+                <h3>Günlük İstatistikler (Son 30 Gün) - Detaylar Için Tıklayın</h3>
+                <div id="modal-gunluk-stats" class="gunluk-stats-container">
+                    <!-- Dinamik olarak doldurulacak -->
+                </div>
+
+                <h3 id="gunun-sorulari-baslik" style="display: none;">Gunun Tüm Soruları</h3>
+                <div id="modal-gunluk-sorular" class="gunluk-sorular-container" style="display: none;">
+                    <!-- Dinamik olarak doldurulacak -->
+                </div>
+
+                <h3>İşlem Türüne Göre İstatistikler</h3>
+                <div id="modal-islem-stats" class="islem-stats-grid">
+                    <!-- Dinamik olarak doldurulacak -->
+                </div>
+
+                <h3>Son 20 Cevap</h3>
+                <div class="son-cevaplar-container">
+                    <table id="modal-cevaplar-tablosu" class="cevaplar-tablosu">
+                        <thead>
+                            <tr>
+                                <th>İşlem Türü</th>
+                                <th>Soru</th>
+                                <th>Cevabı</th>
+                                <th>Doğru Cevap</th>
+                                <th>Sonuç</th>
+                                <th>Zorluk</th>
+                                <th>Tarih</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="7" style="text-align: center;">Yükleniyor...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Silme Onay Modal -->
+        <div id="sil-modal" class="modal" style="display: none;">
+            <div class="modal-content" style="max-width: 400px; text-align: center;">
+                <h2>⚠️ Kullanıcıyı Sil</h2>
+                <p>Bu işlem geri alınamaz. Kullanıcı <strong id="sil-kullanici-adi"></strong> ve tüm verileri silinecektir.</p>
+                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
+                    <button class="buton-iptal" onclick="silmeIptal()">İptal</button>
+                    <button class="buton-onayla" onclick="silmeOnayla()">Evet, Sil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>

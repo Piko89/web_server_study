@@ -4,6 +4,20 @@ let oyunTipi = window.oyunVeri.oyunTipi;
 let dogruSayisi = 0;
 let yanlisSayisi = 0;
 let soruCevaplandi = false;
+let kullaniclAdi = kullaniclAdiAl();
+
+function kullaniclAdiAl() {
+    let adi = localStorage.getItem('kullaniclAdi');
+    if (!adi) {
+        adi = prompt('Lütfen adınızı girin:', 'Öğrenci');
+        if (adi) {
+            localStorage.setItem('kullaniclAdi', adi);
+        } else {
+            adi = 'Anonim';
+        }
+    }
+    return adi;
+}
 
 function cevapKontrol() {
     const cevap = parseInt(document.getElementById('cevap').value);
@@ -33,7 +47,30 @@ function cevapKontrol() {
     }
 
     sonucDiv.style.display = 'block';
-    soruCevaplandi = true; // Sorunun cevaplandığını işaretle
+    soruCevaplandi = true;
+    
+    // Cevapı kaydet
+    cevapKaydet('bolme', mevcutSayi1, mevcutSayi2, cevap, dogruCevap, oyunTipi);
+}
+
+function cevapKaydet(islemTipi, sayi1, sayi2, kullaniciCevabi, dogruCevap, zorluk) {
+    fetch('/api/cevap-kaydet', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            kullanici_adi: kullaniclAdi,
+            islem_tipi: islemTipi,
+            sayi1: sayi1,
+            sayi2: sayi2,
+            kullanici_cevabi: kullaniciCevabi,
+            dogru_cevap: dogruCevap,
+            zorluk: zorluk
+        })
+    })
+    .then(response => response.json())
+    .catch(error => console.error('Cevap kaydedilirken hata:', error));
 }
 
 function yeniSoru() {
